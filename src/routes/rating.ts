@@ -1,18 +1,9 @@
-import { Router, Request, Response } from "express";
-import { v4 as uuidv4 } from "uuid";
+import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 
 const router = Router();
 
 const prisma = new PrismaClient();
-
-router.post("/register", async (reg: Request, res: Response) => {
-  const anonymousId = uuidv4();
-  const user = await prisma.user.create({ data: {
-    id: anonymousId
-  } });
-  res.json({ id: user.id });
-});
 
 router.post("/reviews", async (req, res) => {
   const { anonymousId, movieId, rating, comment } = req.body;
