@@ -8,6 +8,10 @@ export async function createReview(userId: string, movieId: string, rating: numb
 
 export async function getMovieReviews(movieId: string) {
   const reviews = await prisma.review.findMany({ where: { movieId } });
+  
+  if (reviews.length === 0) {
+    return null
+  }
   const count = reviews.length;
 
   const averageScore = count
